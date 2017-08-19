@@ -9,17 +9,20 @@ namespace ShowMeTheMoneyInWordsWebApp.Orchestrators
 {
     public class HomeOrchestrator
     {
-        private ApiUrlSettings urlSettings;
+        private AmountInWordsApiSettings apiSettings;
+        private static readonly HttpClient httpClient = new HttpClient();
 
-        public HomeOrchestrator(ApiUrlSettings urlSettings)
+        public HomeOrchestrator(AmountInWordsApiSettings apiSettings)
         {
-            this.urlSettings = urlSettings;
+            this.apiSettings = apiSettings;
+            httpClient.BaseAddress = new Uri(apiSettings.BaseUrl);
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(apiSettings.AcceptMediaType));
         }
 
         public async Task<string> ProcessInput(string input)
         {
-            var client = new HttpClient();
-            return await client.GetStringAsync(urlSettings.AmountInWordsApi + "?text=" + input);
+            return await httpClient.GetStringAsync(string.Format(apiSettings.EndPoint, input));
         }
     }
 }

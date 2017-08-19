@@ -29,10 +29,10 @@ namespace ShowMeTheMoneyInWordsWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             // Get API Url configuration
-            services.Configure<Models.Settings.ApiUrlSettings>(Configuration.GetSection("ApiUrl"));
-            services.AddTransient(sp => sp.GetService<IOptionsSnapshot<Models.Settings.ApiUrlSettings>>().Value);
+            services.Configure<Models.Settings.AmountInWordsApiSettings>(Configuration.GetSection("AmountInWordsApi"));
+            services.AddTransient(sp => sp.GetService<IOptionsSnapshot<Models.Settings.AmountInWordsApiSettings>>().Value);
 
-            services.AddTransient<Orchestrators.HomeOrchestrator, Orchestrators.HomeOrchestrator>();
+            services.AddSingleton<Orchestrators.HomeOrchestrator, Orchestrators.HomeOrchestrator>();
 
             // Add framework services.
             services.AddMvc();
