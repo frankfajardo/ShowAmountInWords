@@ -30,8 +30,8 @@ namespace ShowMeTheMoneyInWordsWebApp.Controllers
         {
             if (!ModelState.IsValid)
                 return View();
-
-            ViewData["Message"] = await orchestrator.ProcessInput(input.NameAndAmount);
+            ViewData["InputText"] = input.NameAndAmount;
+            ViewData["InWords"] = await orchestrator.ProcessInput(input.NameAndAmount);
             return View("Result");
         }
 

@@ -1,7 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "In Words";
+    ViewData["Title"] = "Result";
 }
 <h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
 
-
+<p>
+    <strong>You entered:</strong>
+    <br />
+    @ViewData["InputText"]
+</p>
+<p>
+    <strong>In words:</strong>
+    <br />
+    @ViewData["InWords"]
+</p>
+<br />
+<a asp-action="index" asp-controller="home" class="btn btn-primary">Enter another</a>
