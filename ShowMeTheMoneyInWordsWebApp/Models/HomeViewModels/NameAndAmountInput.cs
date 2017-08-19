@@ -10,7 +10,7 @@ namespace ShowMeTheMoneyInWordsWebApp
     {
         [Required]
         [RegularExpression(@"^.*\""(\d+(\.\d{0,2})?)\""$", 
-            ErrorMessage = "Value does not match the required format.")]
+            ErrorMessage = "Name and amount value does not match the required format.")]
         [Display(Name = "Name and amount")]
         public string NameAndAmount { get; set; }
     }
