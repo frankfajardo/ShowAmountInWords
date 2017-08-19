@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
-namespace ShowMeTheMoneyInWordsWebApp
+namespace ShowMeTheMoneyInWordsApi
 {
     public class Startup
     {
@@ -28,12 +27,6 @@ namespace ShowMeTheMoneyInWordsWebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Get API Url configuration
-            services.Configure<Models.Settings.ApiUrlSettings>(Configuration.GetSection("ApiUrl"));
-            services.AddTransient(sp => sp.GetService<IOptionsSnapshot<Models.Settings.ApiUrlSettings>>().Value);
-
-            services.AddTransient<Orchestrators.HomeOrchestrator, Orchestrators.HomeOrchestrator>();
-
             // Add framework services.
             services.AddMvc();
         }
@@ -44,24 +37,7 @@ namespace ShowMeTheMoneyInWordsWebApp
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-
-            app.UseStaticFiles();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvc();
         }
     }
 }
